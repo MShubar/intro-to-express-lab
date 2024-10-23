@@ -35,7 +35,6 @@ app.get('/roll/:number', (req, res) => {
 //exercise 3
 app.get('/collectibles/:index', (req, res) => {
   const index = parseInt(req.params.index)
-
   if (index < collectibles.length) {
     const collectiblesName = collectibles[index].name
     const collectiblesPrice = collectibles[index].price
@@ -49,6 +48,23 @@ app.get('/collectibles/:index', (req, res) => {
 
 //exercise 4
 
+app.get('/shoes', (req, res) => {
+  let result = []
+  shoes.forEach((shoe) => {
+    if (
+      shoe.price > req.query.min &&
+      shoe.price < req.query.max &&
+      shoe.type === req.query.type
+    ) {
+      result.push(shoe)
+    } else {
+      res.json({ shoes })
+    }
+  })
+  res.json({ result })
+})
+
+// listeners
 app.listen(3000, () => {
   console.log('Listening on port 3000')
 })
